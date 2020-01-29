@@ -10,6 +10,7 @@ import com.ashraya.customer.domain.CustomerResponse;
 import com.ashraya.customer.domain.LoginRequestPayload;
 import com.ashraya.customer.domain.OtpPayload;
 import com.ashraya.customer.domain.OtpResponse;
+import com.ashraya.customer.exception.ValidationException;
 import com.ashraya.customer.model.FacebookAccountInfo;
 import com.ashraya.customer.model.GoogleAccountInfo;
 import com.ashraya.customer.model.Otp;
@@ -52,7 +53,7 @@ public class LoginServiceImpl implements LoginService {
         } else if (loginType.equals(LoginType.FACEBOOK)) {
             loginWithFacebook(payload);
         }
-        return createResponse(status, payload, waterRecipient);
+        return createResponse(status, payload);
     }
 
     private void loginWithMobile(LoginRequestPayload payload) {
@@ -70,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
         String token = LoginValidationUtil.validateToken(payload.getEmailId());
         Integer id = facebookAccountRepository.findByEmailId(token);
         if (id != null) {
-            waterRecipient = waterRecpientRepository.findByFacebookAccountInfoId(id);
+            waterRecipient = LoginValidationUtil.validateFacebookId(waterRecpientRepository.findByFacebookAccountInfoId(id));
             status = Constants.STATUS_LOGIN;
         } else {
             LoginValidationUtil.validate(payload);
@@ -83,7 +84,7 @@ public class LoginServiceImpl implements LoginService {
         String token = LoginValidationUtil.validateToken(payload.getEmailId());
         Integer id = googleAccountRepository.findByEmail(token);
         if (id != null) {
-            waterRecipient = waterRecpientRepository.findByGoogleAccountInfoId(id);
+            waterRecipient = LoginValidationUtil.validateGoogleId(waterRecpientRepository.findByGoogleAccountInfoId(id));
             status = Constants.STATUS_LOGIN;
         } else {
             LoginValidationUtil.validate(payload);
@@ -98,7 +99,7 @@ public class LoginServiceImpl implements LoginService {
         status = Constants.STATUS_REGISTER;
     }
 
-    private CustomerResponse createResponse(String status, LoginRequestPayload payload, WaterRecipient waterRecipient) {
+    private CustomerResponse createResponse(String status, LoginRequestPayload payload) {
         return CustomerResponse.builder().status(status).customerId(waterRecipient.getId()).userName(payload.getFirstName()).emailId(payload.getEmailId()).build();
     }
 
