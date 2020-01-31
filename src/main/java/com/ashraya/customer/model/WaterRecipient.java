@@ -28,6 +28,7 @@ import com.ashraya.customer.constants.LoginType;
 @NoArgsConstructor
 @Table(name = "water_recipient")
 public class WaterRecipient {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "rec_id")

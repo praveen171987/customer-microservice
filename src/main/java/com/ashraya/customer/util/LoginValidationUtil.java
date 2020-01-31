@@ -6,7 +6,6 @@ import com.ashraya.customer.constants.Constants;
 import com.ashraya.customer.constants.LoginType;
 import com.ashraya.customer.domain.LoginRequestPayload;
 import com.ashraya.customer.exception.ValidationException;
-import com.ashraya.customer.model.WaterRecipient;
 
 public class LoginValidationUtil {
 
@@ -18,7 +17,6 @@ public class LoginValidationUtil {
             throw new ValidationException(Constants.GST_NOT_FOUND);
         }
     }
-    
 
     public static LoginType validateLogintype(LoginType loginType) {
         return Optional.ofNullable(loginType).orElseThrow(() -> new ValidationException(Constants.LOGIN_TYPE_NOT_FOUND));
@@ -30,13 +28,5 @@ public class LoginValidationUtil {
 
     public static String validatePhone(String phonenumber) {
         return Optional.ofNullable(phonenumber).orElseThrow(() -> new ValidationException(Constants.PHONE_NUMBER_NOT_FOUND));
-    }
-    
-    public static WaterRecipient validateFacebookId(WaterRecipient WaterRecipient) {
-        return Optional.ofNullable(WaterRecipient).orElseThrow(() -> new ValidationException(Constants.FACEBOOK_ID_NOT_FOUND));
-    }
-    
-    public static WaterRecipient validateGoogleId(WaterRecipient WaterRecipient) {
-        return Optional.ofNullable(WaterRecipient).orElseThrow(() -> new ValidationException(Constants.GOOGLE_ID_NOT_FOUND));
     }
 }

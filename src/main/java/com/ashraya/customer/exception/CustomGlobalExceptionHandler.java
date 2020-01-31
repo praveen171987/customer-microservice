@@ -19,11 +19,12 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<CustomErrorResponse> customHandleNotFound(Exception ex, WebRequest request) {
-        logger.error("Error =======> " + ex.getMessage());       
+        logger.error("Error =======> " + ex.getMessage());      
         CustomErrorResponse errors = createErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+	
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomErrorResponse> customErrorHandle(Exception ex, WebRequest request) {
         logger.error("Error =======> ", ex);
