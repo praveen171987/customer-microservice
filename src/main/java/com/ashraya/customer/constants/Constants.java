@@ -26,4 +26,5 @@ public class Constants {
     
     public final static String CUSTOMER_BASE_PATH = "http://localhost:8181/customer/v1/";
     public final static String APPLICATION_PROPERTIES_PATH = "F:/Personal-Data/ongoing-work/microservice-freelancer/workspace/customer-application.properties";
+    //public final static String APPLICATION_PROPERTIES_PATH = "/home/ec2-user/watertohome/propertyfiles/customer-application.properties";
 }
