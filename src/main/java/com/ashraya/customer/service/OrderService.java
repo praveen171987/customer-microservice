@@ -15,5 +15,5 @@ public interface OrderService {
 	
 	public OrderResponse placeOrder(WaterDistributionPayload waterDistributionDto) throws ParseException;
 	
-	public OrderResponse cancelOrder(Integer distributionId, Integer userId);
+	public OrderResponse cancelOrder(Integer distributionId);
 }

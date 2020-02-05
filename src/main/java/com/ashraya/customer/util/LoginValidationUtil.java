@@ -22,7 +22,7 @@ public class LoginValidationUtil {
         return Optional.ofNullable(loginType).orElseThrow(() -> new ValidationException(Constants.LOGIN_TYPE_NOT_FOUND));
     }
 
-    public static String validateToken(String emailId) {
+    public static String validateEmail(String emailId) {
         return Optional.ofNullable(emailId).orElseThrow(() -> new ValidationException(Constants.EMAIL_NOT_FOUND));
     }
 

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ashraya.customer.model.WaterTanker;
 
 @Repository
-public interface WaterTankerRepository extends JpaRepository<WaterTanker, Integer>{
+public interface WaterTankerRepository extends JpaRepository<WaterTanker, Integer> {
 
 }

@@ -8,5 +8,5 @@ import com.ashraya.customer.model.WaterDistribution;
 @Repository
 public interface WaterDistributionRepository extends JpaRepository<WaterDistribution, Integer> {
 
-    public WaterDistribution findByIdAndWaterRecipientId(Integer distributionId, Integer userId);
+    public WaterDistribution findById(Integer distributionId);
 }

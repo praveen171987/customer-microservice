@@ -29,7 +29,7 @@ public class Otp {
     @Column(name = "otp_id")
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "recipient_user_id", referencedColumnName = "rec_id")
     private WaterRecipient waterRecipient;
 

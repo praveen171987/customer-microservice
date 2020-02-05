@@ -3,8 +3,8 @@ package com.ashraya.customer.constants;
 public class Constants {
 
 	public static final String CUSTOMER = "customer";
-    public static final String STATUS_LOGIN = "User LoggedIn";
-    public static final String STATUS_REGISTER = "User Registered";
+    public static final String LOGIN_STATUS = "User LoggedIn";
+    public static final String REGISTER_STATUS = "User Registered";
     public static final String GST_NOT_FOUND = "GST number can't be null";
     public static final String LOGIN_TYPE_NOT_FOUND = "LoginType can't be null";
     public static final String EMAIL_NOT_FOUND = "Email can't be null";
@@ -25,6 +25,5 @@ public class Constants {
     public static final String CANCEL_ORDER_ALREADY = "Order already cancelled";
     
     public final static String CUSTOMER_BASE_PATH = "http://localhost:8181/customer/v1/";
-    
-    
+    public final static String APPLICATION_PROPERTIES_PATH = "F:/Personal-Data/ongoing-work/microservice-freelancer/workspace/customer-application.properties";
 }

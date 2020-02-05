@@ -13,5 +13,5 @@ public interface WaterRecpientRepository extends JpaRepository<WaterRecipient, I
     public WaterRecipient findByFacebookAccountInfoId(Integer id);
 
     public WaterRecipient findByGoogleAccountInfoId(Integer id);
-    
+
 }
