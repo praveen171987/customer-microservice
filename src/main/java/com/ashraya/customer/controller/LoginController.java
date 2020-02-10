@@ -20,24 +20,22 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-    @Autowired
-    private LoggerService log;
-
-    private static final String className = LoginController.class.getName();
+    
+    private LoggerService log = LoggerService.createLogger(LoginController.class.getName());
     
     @PostMapping(path = Constants.VERSION + "/login", consumes = "application/json", produces = "application/json")
     public CustomerResponse login(@RequestBody LoginRequestPayload payload) {
-    	log.printStart(className, payload.toString(), "login");
+    	log.printStart(payload.toString(), "login");
     	CustomerResponse response =  loginService.loginOrRegister(payload);
-    	log.printEnd(className,"login");
+    	log.printEnd("login");
     	return response;
     }
 
     @PostMapping(path = Constants.VERSION + "/verifyOtp", consumes = "application/json", produces = "application/json")
     public OtpResponse verifyOtp(@RequestBody OtpPayload otpPayload) {
-    	log.printStart(className,otpPayload.toString(),"verifyOtp");
+    	log.printStart(otpPayload.toString(),"verifyOtp");
     	OtpResponse response = loginService.verifyOtp(otpPayload);
-    	log.printEnd(className,"verifyOtp");
+    	log.printEnd("verifyOtp");
     	return response;
     }
 }

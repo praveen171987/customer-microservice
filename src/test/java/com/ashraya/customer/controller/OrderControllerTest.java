@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,54 +30,58 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@AutoConfigureMockMvc(secure = false)
 public class OrderControllerTest {
 
-	@Autowired
-	private WebApplicationContext webApplicationContext;
-	private MockMvc mockMvc;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
+    private MockMvc mockMvc;
 
-	@Mock
-	OrderService orderService;
+    @Mock
+    OrderService orderService;
 
-	@InjectMocks
-	OrderController orderController;
+    @InjectMocks
+    OrderController orderController;
 
-	@Before
-	public void setup() {
-		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-		when(orderService.cancelOrder(Mockito.anyInt())).thenReturn(OrderControllerTestData.getOrderResponse());
+    @Before
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        when(orderService.cancelOrder(Mockito.anyInt())).thenReturn(OrderControllerTestData.getOrderResponse());
 
-	}
+    }
 
-	@Ignore
-	@Test
-	public void whenValidInputForPlaceOrder_thenReturns200() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-		mockMvc.perform(post(Constants.CUSTOMER_BASE_PATH + "placeOrder").contentType("application/json")
-				.content(objectMapper.writeValueAsString(OrderControllerTestData.get()))).andExpect(status().isOk());
-	}
+    @Ignore
+    @Test
+    public void whenValidInputForPlaceOrder_thenReturns200() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(post(Constants.CUSTOMER_BASE_PATH + "placeOrder").contentType("application/json").content(objectMapper.writeValueAsString(OrderControllerTestData.get())))
+                        .andExpect(status().isOk());
+    }
 
-	@Test
-	public void whenInValidInput_thenReturns400() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-		mockMvc.perform(post(Constants.CUSTOMER_BASE_PATH + "cancelOrder/1").contentType("application/json")
-				.content(objectMapper.writeValueAsString(OrderControllerTestData.getInvalidData())))
-				.andExpect(status().is4xxClientError());
-	}
+    @Test
+    public void whenInValidInput_thenReturns400() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(post(Constants.CUSTOMER_BASE_PATH + "cancelOrder/1").contentType("application/json")
+                        .content(objectMapper.writeValueAsString(OrderControllerTestData.getInvalidData()))).andExpect(status().is4xxClientError());
+    }
 
-	@Test
-	public void whenValidInputForCancelOrder_thenReturns200() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-		mockMvc.perform(get(Constants.CUSTOMER_BASE_PATH + "cancelOrder/1")
-				.content(objectMapper.writeValueAsString(OrderControllerTestData.get()))).andExpect(status().isOk());
-	}
+    @Test
+    public void whenValidInputForCancelOrder_thenReturns200() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(get(Constants.CUSTOMER_BASE_PATH + "cancelOrder/1").content(objectMapper.writeValueAsString(OrderControllerTestData.get()))).andExpect(status().isOk());
+    }
 
-	@Test
-	public void whenOrderFailed_thenReturnOrderFailRespoonse() {
-		when(orderService.cancelOrder(anyInt()))
-				.thenReturn(OrderControllerTestData.getCancelOrderOrderResponse());
-		OrderResponse response = orderController.cancelOrder(1);
-		assertThat(response.getMessage()).isEqualTo(Constants.CANCEL_ORDER_FAILED);
-	}
-
+    @Test
+    public void whenOrderFailed_thenReturnOrderFailRespoonse() {
+        when(orderService.cancelOrder(anyInt())).thenReturn(OrderControllerTestData.getCancelOrderOrderResponse());
+        OrderResponse response = orderController.cancelOrder(1);
+        assertThat(response.getMessage()).isEqualTo(Constants.CANCEL_ORDER_FAILED);
+    }
+    
+    @Test
+    public void whenValidInputForPayment_thenReturns200() throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        mockMvc.perform(post(Constants.CUSTOMER_BASE_PATH + "payment").contentType("application/json").content(objectMapper.writeValueAsString(OrderControllerTestData.getPaymentPayload()))).andExpect(status().isOk());
+    }
+    
 }

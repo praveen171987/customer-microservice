@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.ashraya.customer.constants.DistributionStatus;
+import com.ashraya.customer.constants.PaymentMode;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -57,5 +58,15 @@ public class WaterDistribution {
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "water_tanker_category_id", referencedColumnName = "id")
 	private WaterTanker WaterTanker;
-
+	
+	@Column(name = "discount")
+	private Float discount;
+	
+	@Column(name = "amount")
+	private Float amount;
+	
+	@Column(name = "payment_mode")
+	@Enumerated(EnumType.STRING)
+	private PaymentMode paymentMode;
+	
 }

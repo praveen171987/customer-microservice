@@ -44,13 +44,10 @@ public class LoginServiceImpl implements LoginService {
 	private String status;
 	private WaterRecipient waterRecipient;
 
-	@Autowired
-	private LoggerService log;
-
-	private static final String className = LoginServiceImpl.class.getName();
+    private LoggerService log = LoggerService.createLogger(LoginServiceImpl.class.getName());
 
 	public CustomerResponse loginOrRegister(LoginRequestPayload payload) {
-		log.printStart(className, "loginOrRegister");
+		log.printStart("loginOrRegister");
 		LoginType loginType = LoginValidationUtil.validateLogintype(payload.getLoginType());
 		if (loginType.equals(LoginType.PHONE)) {
 			loginWithMobile(payload);
@@ -60,12 +57,12 @@ public class LoginServiceImpl implements LoginService {
 			loginWithFacebook(payload);
 		}
 
-		log.printEnd(className, "loginOrRegister");
+		log.printEnd("loginOrRegister");
 		return createResponse(status, payload, waterRecipient);
 	}
 
 	private void loginWithMobile(LoginRequestPayload payload) {
-		log.printStart(className, "loginWithMobile");
+		log.printStart("loginWithMobile");
 		String phoneNumber = LoginValidationUtil.validatePhone(payload.getPhoneNumber());
 		waterRecipient = waterRecpientRepository.findByMobileNumber(phoneNumber);
 		if (waterRecipient != null) {
@@ -75,13 +72,13 @@ public class LoginServiceImpl implements LoginService {
 			createWaterRecipient(payload, null, null);
 		}
 
-		log.printEnd(className, "loginWithMobile");
+		log.printEnd("loginWithMobile");
 
 	}
 
 	private void loginWithFacebook(LoginRequestPayload payload) {
 
-		log.printStart(className, "loginWithFacebook");
+		log.printStart("loginWithFacebook");
 
 		String email = LoginValidationUtil.validateEmail(payload.getEmailId());
 		Integer id = facebookAccountRepository.findByEmailId(email);
@@ -96,13 +93,13 @@ public class LoginServiceImpl implements LoginService {
 			createWaterRecipient(payload, facebookAccountInfo, null);
 		}
 
-		log.printEnd(className, "loginWithFacebook");
+		log.printEnd("loginWithFacebook");
 
 	}
 
 	private void loginWithGoogle(LoginRequestPayload payload) {
 
-		log.printStart(className, "loginWithGoogle");
+		log.printStart("loginWithGoogle");
 
 		String email = LoginValidationUtil.validateEmail(payload.getEmailId());
 		Integer id = googleAccountRepository.findByEmail(email);
@@ -116,20 +113,20 @@ public class LoginServiceImpl implements LoginService {
 			createWaterRecipient(payload, null, googleAccountInfo);
 		}
 
-		log.printEnd(className, "loginWithGoogle");
+		log.printEnd("loginWithGoogle");
 
 	}
 
 	private void createWaterRecipient(LoginRequestPayload payload, FacebookAccountInfo facebookAccountInfo,
 			GoogleAccountInfo accountInfo) {
 
-		log.printStart(className, "createWaterRecipient");
+		log.printStart("createWaterRecipient");
 
 		waterRecipient = waterRecpientRepository.save(LoginMapper.mapToWaterRecipient(payload, facebookAccountInfo,
 				accountInfo, categoryRepository.findOne(payload.getCategoryId())));
 		status = REGISTER_STATUS;
 
-		log.printEnd(className, "createWaterRecipient");
+		log.printEnd("createWaterRecipient");
 
 	}
 
@@ -140,15 +137,15 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public OtpResponse verifyOtp(OtpPayload otpPayload) {
-		log.printStart(className, "verifyOtp");
+		log.printStart("verifyOtp");
 
 		Otp otp = otpRepository.findByWaterRecipientIdAndOtpNumber(otpPayload.getUserId(), otpPayload.getOtpNumber());
 		if (otp == null) {
-			log.printEnd(className, "verifyOtp");
+			log.printEnd("verifyOtp");
 			return OtpResponse.builder().status(OTP_NOT_VERIED).build();
 		}
 		otpRepository.delete(otp);
-		log.printEnd(className, "verifyOtp");
+		log.printEnd("verifyOtp");
 		return OtpResponse.builder().status(OTP_VERIFY).build();
 	}
 }

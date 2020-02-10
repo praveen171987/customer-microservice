@@ -1,5 +1,6 @@
 package com.ashraya.customer.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -32,5 +33,6 @@ public class OrderResponse {
 	
 	@JsonInclude(Include.NON_NULL)
 	private String currency;
+	
 	
 }
