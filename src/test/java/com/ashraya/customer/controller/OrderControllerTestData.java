@@ -15,6 +15,7 @@ import com.ashraya.customer.domain.WaterDistributionPayload;
 import com.ashraya.customer.model.DataTypeMaster;
 import com.ashraya.customer.model.FieldTypeMaster;
 import com.ashraya.customer.model.Questions;
+import com.ashraya.customer.model.WaterTanker;
 
 public class OrderControllerTestData {
 
@@ -69,4 +70,11 @@ public class OrderControllerTestData {
         questionFeedbackPayload.add(QuestionFeedbackPayload.builder().id(7).value("YES").build());
         return FeedbackPayload.builder().orderId(12).userId(22).questionFeedbackPayload(questionFeedbackPayload).build();
     }
+    
+	public static List<WaterTanker> getWaterTenkers() {
+		List<WaterTanker> waterTanker = new ArrayList<WaterTanker>();
+		waterTanker.add(WaterTanker.builder().category("Small").id(1).waterTankerCapacity(2000).build());
+		return waterTanker;
+	}
+
 }

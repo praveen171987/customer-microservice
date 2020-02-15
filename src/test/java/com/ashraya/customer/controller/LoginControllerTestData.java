@@ -27,7 +27,7 @@ public class LoginControllerTestData {
         payload.setFirstName(DISPLAY_NAME);
         payload.setLastName(LAST_NAME);
         payload.setPhoneNumber(PHONE_NUMBER);
-        payload.setLoginType(LoginType.GOOGLE);
+        payload.setLoginType(LoginType.GOOGLE.toString());
         return payload;
     }
 

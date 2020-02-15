@@ -10,7 +10,7 @@ import com.ashraya.customer.exception.ValidationException;
 public class LoginValidationUtil {
 
     public static void validate(LoginRequestPayload loginRequestPayload) {
-        if (loginRequestPayload.getLoginType() == LoginType.PHONE) {
+        if (loginRequestPayload.getLoginType().equals(LoginType.PHONE.toString())) {
             validatePhone(loginRequestPayload.getPhoneNumber());
         }
         if (loginRequestPayload.getGstNumber() == null) {
@@ -18,7 +18,7 @@ public class LoginValidationUtil {
         }
     }
 
-    public static LoginType validateLogintype(LoginType loginType) {
+    public static String validateLogintype(String loginType) {
         return Optional.ofNullable(loginType).orElseThrow(() -> new ValidationException(Constants.LOGIN_TYPE_NOT_FOUND));
     }
 

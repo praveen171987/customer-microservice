@@ -2,11 +2,15 @@ package com.ashraya.customer.constants;
 
 public class Constants {
 
+    public static final String OTP_API_KEY = "Qt9H7aXihvA-lXDWHTwODPRUe4DiB8L3TXppM9tKCy";
+
+    public static final String DATEANDTIME_FORMAT = "dd/MM/yyyy hh:mm:ss";
     public static final String CUSTOMER = "customer";
     public static final String LOGIN_STATUS = "User LoggedIn";
     public static final String REGISTER_STATUS = "User Registered";
     public static final String GST_NOT_FOUND = "GST number can't be null";
     public static final String LOGIN_TYPE_NOT_FOUND = "LoginType can't be null";
+    public static final String LOGIN_TYPE_INVALID = "Invalid LoginType";
     public static final String EMAIL_NOT_FOUND = "Email can't be null";
     public static final String PHONE_NUMBER_NOT_FOUND = "Phone number can't be null";
     public static final String NULL_MESSAGE = " can't be null";

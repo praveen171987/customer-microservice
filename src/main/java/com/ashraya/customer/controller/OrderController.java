@@ -28,7 +28,7 @@ public class OrderController {
 
     private LoggerService log = LoggerService.createLogger(OrderController.class.getName());
 
-    @GetMapping(value = "/getAllWaterTankerCategory")
+    @GetMapping(value = Constants.VERSION + "/getAllWaterTankerCategory")
     public List<WaterTanker> getAllWaterTankerCategory() {
         log.printStart("getAllWaterTankerCategory");
         List<WaterTanker> response = orderService.getAllWaterTankerCategory();

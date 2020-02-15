@@ -32,11 +32,11 @@ public class CustomerApplication extends SpringBootServletInitializer implements
 
     }
 
-    @Bean
+   /* @Bean
     public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer properties = new PropertySourcesPlaceholderConfigurer();
         properties.setLocation(new FileSystemResource(Constants.APPLICATION_PROPERTIES_PATH));
         properties.setIgnoreResourceNotFound(false);
         return properties;
-    }
+    }*/
 }

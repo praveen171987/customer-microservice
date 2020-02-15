@@ -1,14 +1,13 @@
 package com.ashraya.customer.domain;
 
 import com.ashraya.customer.constants.AppUsage;
-import com.ashraya.customer.constants.LoginType;
 
 import lombok.Data;
 
 @Data
 public class LoginRequestPayload {
 
-    private LoginType loginType;
+    private String loginType;
     private String firstName;
     private String lastName;
     private String displayName;

@@ -9,3 +9,6 @@ public interface OtpRepository extends CrudRepository<Otp, Integer> {
     public Otp findByWaterRecipientIdAndOtpNumber(Integer userId, String otpNumber);
 
 }
+
+
+  

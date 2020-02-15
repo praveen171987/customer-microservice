@@ -84,4 +84,9 @@ public class OrderControllerTest {
         mockMvc.perform(post(Constants.CUSTOMER_BASE_PATH + "payment").contentType("application/json").content(objectMapper.writeValueAsString(OrderControllerTestData.getPaymentPayload()))).andExpect(status().isOk());
     }
     
+    @Test
+   public void getAllWaterTankerCategoryTest() throws Exception {
+    	 ObjectMapper objectMapper = new ObjectMapper();
+         mockMvc.perform(get(Constants.CUSTOMER_BASE_PATH + "getAllWaterTankerCategory").content(objectMapper.writeValueAsString(OrderControllerTestData.getWaterTenkers()))).andExpect(status().isOk());
+     }
 }
